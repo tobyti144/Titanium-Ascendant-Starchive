@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Library & Archive</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/index.css">
+</head>
+<body class="antialiased min-h-screen flex flex-col">
+
+    <!-- Header -->
+    <header class="bg-titanium-950 border-b border-titanium-800 sticky top-0 z-10 shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="bg-ascendant text-titanium-950 p-2 rounded-md shadow-[0_0_10px_rgba(0,229,255,0.5)]">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <div class="flex flex-col">
+                    <h1 class="text-xl font-bold text-white tracking-tight">TITANIUM <span class="text-ascendant">ASCENDANT</span></h1>
+                    <span class="text-[10px] uppercase tracking-[0.2em] text-titanium-400 -mt-1">Starchive Protocol</span>
+                </div>
+            </div>
+            <div class="text-xs font-mono text-titanium-400 flex items-center gap-2">
+                <span class="w-2 h-2 bg-ascendant rounded-full animate-pulse"></span>
+                SECURE UPLINK ACTIVE
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
+        
+        <!-- Search and AI Bar -->
+        <div class="bg-titanium-800 p-6 rounded-xl shadow-2xl border border-titanium-700 mb-8 flex flex-col gap-4">
+            <div class="flex flex-col sm:flex-row gap-4 justify-between items-center">
+                <div class="relative w-full sm:w-96">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <i class="fas fa-search text-titanium-500"></i>
+                    </div>
+                    <input type="text" id="search-input" class="block w-full pl-10 pr-3 py-2.5 border border-titanium-700 rounded-lg leading-5 bg-titanium-900 text-white placeholder-titanium-500 focus:outline-none focus:ring-2 focus:ring-ascendant/50 focus:border-ascendant sm:text-sm transition-all" placeholder="Query archives...">
+                </div>
+                <div class="flex gap-3 w-full sm:w-auto">
+                    <button id="filter-btn" class="flex-1 sm:flex-none flex items-center justify-center gap-2 px-5 py-2.5 border border-titanium-700 rounded-lg text-sm font-medium text-titanium-300 bg-titanium-900 hover:bg-titanium-700 hover:text-white transition-colors">
+                        <i class="fas fa-sliders text-titanium-500"></i> Filter
+                    </button>
+                    <button id="ai-ask-btn" class="flex-1 sm:flex-none flex items-center justify-center gap-2 px-5 py-2.5 bg-ascendant text-titanium-950 rounded-lg text-sm font-bold hover:bg-white hover:shadow-[0_0_20px_rgba(255,255,255,0.3)] transition-all">
+                        <i class="fas fa-brain"></i> ASK LIBRARIAN
+                    </button>
+                </div>
+            </div>
+            <div id="ai-response-container" class="hidden p-5 bg-titanium-900/50 rounded-lg border border-ascendant/20 text-sm text-titanium-200">
+                <div class="flex items-start gap-4">
+                    <div class="bg-ascendant/10 p-2 rounded-md">
+                        <i class="fas fa-terminal text-ascendant"></i>
+                    </div>
+                    <div id="ai-response-text" class="prose prose-invert prose-sm max-w-none"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <div class="border-b border-titanium-800 mb-8">
+            <nav class="-mb-px flex space-x-10" aria-label="Tabs">
+                <button id="btn-documents" class="tab-btn active whitespace-nowrap py-4 px-1 font-bold text-sm text-titanium-500 hover:text-titanium-200">
+                    <i class="fas fa-file-code mr-2"></i> MANUSCRIPTS
+                </button>
+                <button id="btn-media" class="tab-btn whitespace-nowrap py-4 px-1 font-bold text-sm text-titanium-500 hover:text-titanium-200">
+                    <i class="fas fa-photo-film mr-2"></i> MEDIA ASSETS
+                </button>
+                <button id="btn-data" class="tab-btn whitespace-nowrap py-4 px-1 font-bold text-sm text-titanium-500 hover:text-titanium-200">
+                    <i class="fas fa-microchip mr-2"></i> SOCIAL DATA
+                </button>
+            </nav>
+        </div>
+
+        <!-- Tab Content: Documents -->
+        <div id="tab-documents" class="tab-content active">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="documents-grid">
+                <!-- Cards will be injected by index.ts -->
+            </div>
+        </div>
+
+        <!-- Tab Content: Media -->
+        <div id="tab-media" class="tab-content">
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4" id="media-grid">
+                <!-- Cards will be injected by index.ts -->
+            </div>
+        </div>
+
+        <!-- Tab Content: Data -->
+        <div id="tab-data" class="tab-content">
+            <div class="bg-titanium-800 rounded-xl border border-titanium-700 shadow-xl overflow-hidden">
+                <table class="min-w-full divide-y divide-titanium-700">
+                    <thead class="bg-titanium-900">
+                        <tr>
+                            <th scope="col" class="px-6 py-4 text-left text-xs font-bold text-titanium-400 uppercase tracking-widest">Archive ID</th>
+                            <th scope="col" class="px-6 py-4 text-left text-xs font-bold text-titanium-400 uppercase tracking-widest">Format</th>
+                            <th scope="col" class="px-6 py-4 text-left text-xs font-bold text-titanium-400 uppercase tracking-widest">Timestamp</th>
+                            <th scope="col" class="relative px-6 py-4"><span class="sr-only">Action</span></th>
+                        </tr>
+                    </thead>
+                    <tbody id="data-table-body" class="divide-y divide-titanium-700">
+                        <!-- Rows will be injected by index.ts -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </main>
+
+    <script type="importmap">
+      {
+        "imports": {
+          "@google/genai": "https://esm.sh/@google/genai@^0.8.0",
+          "marked": "https://esm.sh/marked@^15.0.8"
+        }
+      }
+    </script>
+    <script type="module" src="/index.ts"></script>
+</body>
+</html>
